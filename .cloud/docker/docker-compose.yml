@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  ####################
+  # PHP and Apache Container
+  ####################
+  php-apache:
+    build:
+      context: '../../'
+      dockerfile: '.cloud/docker/php/Dockerfile'
+      args:
+        PHP_VERSION: ${PHP_VERSION}
+        INSTALL_IMAGEMAGICK: ${INSTALL_IMAGEMAGICK}
+        INSTALL_SSL: ${INSTALL_SSL}
+        APP_HOST: ${APP_HOST}
+        APP_CODE_PATH_CONTAINER: ${APP_CODE_PATH_CONTAINER}
+    #    depends_on:
+    #      - mariadb # Solve external depends_on
+    environment:
+      PHP_MEMORY_LIMIT: 1G
+      APP_CODE_PATH_CONTAINER: ${APP_CODE_PATH_CONTAINER}
+      APACHE_LOG_DIR: ${APACHE_LOG_DIR}
+    volumes:
+      - ${APP_CODE_PATH_HOST}/:${APP_CODE_PATH_CONTAINER}
+      - ${LOGS_PATH_HOST}apache:${APACHE_LOG_DIR}
+    networks:
+      - webgateway
+      - internal
+      - database
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=web"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${APP_HOST}`)"
+      - "traefik.docker.network=webgateway"
+
+networks:
+  database:
+    external: true
+  webgateway:
+    external: true
+  internal:
+    driver: bridge

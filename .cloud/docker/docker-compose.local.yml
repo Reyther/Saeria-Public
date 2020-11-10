@@ -1,0 +1,108 @@
+version: "3.8"
+
+# keep database event when container is down
+volumes:
+  mariadb_data:
+    driver: local
+
+services:
+  ####################
+  # Database Container
+  ####################
+  mariadb:
+    image: mariadb:${MARIADB_VERSION}
+    restart: unless-stopped
+    tty: true
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      ALLOW_EMPTY_PASSWORD: 'true'
+    volumes:
+      - ${DATA_PATH_HOST}mariadb/mariadb_data:/var/lib/mysql
+      - ${DATA_PATH_HOST}mariadb/database:/docker-entrypoint-initdb.d
+    networks:
+      - internal
+
+  ####################
+  # Maildev Container
+  ####################
+  maildev:
+    image: djfarrelly/maildev:latest
+    networks:
+      - internal
+      - webgateway
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.maildev${COMPOSE_PROJECT_NAME}.rule=Host(`maildev.${APP_HOST}`)"
+      - "traefik.port=80"
+      - "traefik.http.services.maildev${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=80"
+
+  ####################
+  # Adminer Container
+  ####################
+  adminer:
+    image: adminer:latest
+    links:
+      - mariadb:mariadb
+    depends_on:
+      - mariadb
+    networks:
+      - webgateway
+      - internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adminer${COMPOSE_PROJECT_NAME}.rule=Host(`adminer.${APP_HOST}`)"
+
+  ####################
+  # PHPMyAdmin Container
+  ####################
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    depends_on:
+      - mariadb
+    networks:
+      - webgateway
+      - internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.phpmyadmin${COMPOSE_PROJECT_NAME}.rule=Host(`phpmyadmin.${APP_HOST}`)"
+
+  ####################
+  # Workspace Container
+  ####################
+  workspace:
+    build:
+      context: ./workspace
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+        - LARADOCK_PHP_VERSION=${PHP_VERSION}
+        - INSTALL_NODE=${WORKSPACE_INSTALL_NODE:-true}
+        - COMPOSER_GLOBAL_INSTALL=true
+        - INSTALL_MYSQL_CLIENT=true
+        - INSTALL_PING=true
+        - INSTALL_SSHPASS=true
+        - NODE_VERSION=${WORKSPACE_NODE_VERSION}
+        - INSTALL_XDEBUG=true
+        - INSTALL_DUSK_DEPS={WORKSPACE_INSTALL_DUSK_DEPS:-false}
+        - CHROME_DRIVER_VERSION=${WORKSPACE_CHROME_DRIVER_VERSION:-77.0.3865.40}
+        - INSTALL_PRESTISSIMO=true
+        - INSTALL_SOAP=true
+        - INSTALL_DRUSH=${WORKSPACE_INSTALL_DRUSH:-false}
+        - DRUSH_VERSION=${WORKSPACE_DRUSH_VERSION:-9}
+        - INSTALL_IMAGEMAGICK=${INSTALL_IMAGEMAGICK}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:cached # Share source
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa # Share SSH key with container
+      - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub # Share SSH key with container
+      - ~/.gitconfig:/root/.gitconfig # Share git config with container
+      - ~/.composer/auth.json:/root/.composer/auth.json
+    tty: true
+    networks:
+      - internal
