@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "axios": "^0.19",
+        "babel-eslint": "^10.1.0",
         "breakpoint-sass": "^2.7.1",
         "cross-env": "^7.0",
         "eslint": "^5.16.0",
