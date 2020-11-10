@@ -1,3 +1,11 @@
+# Security headers
+Header always set Strict-Transport-Security "max-age=63072000; preload"
+Header always set X-XSS-Protection 1
+Header always set X-Frame-Options DENY
+Header always set Feature-Policy "geolocation 'none'"
+Header always set Referrer-Policy no-referrer-when-downgrade
+Header always set X-Content-Type-Options "nosniff"
+
 # Force HTTPS on *.webqamapps.com domains
 RewriteCond %{HTTP_HOST} \.webqamapps.com$
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
