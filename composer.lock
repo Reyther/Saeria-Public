@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ce2795979b9766a5c7ddf89365c27c6",
+    "content-hash": "3ef50f84fcd09cd46923fd7a777c1dc1",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -4966,6 +4966,45 @@
                 "testing"
             ],
             "time": "2020-08-11T18:10:13+00:00"
+        },
+        {
+            "name": "morrislaptop/var-dumper-with-context",
+            "version": "v0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/morrislaptop/var-dumper-with-context.git",
+                "reference": "5572e239a83c327ca38df66dc8e87d74592fbf81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/morrislaptop/var-dumper-with-context/zipball/5572e239a83c327ca38df66dc8e87d74592fbf81",
+                "reference": "5572e239a83c327ca38df66dc8e87d74592fbf81",
+                "shasum": ""
+            },
+            "require-dev": {
+                "symfony/var-dumper": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/dump.php"
+                ],
+                "psr-4": {
+                    "Morrislaptop\\VarDumperWithContext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Craig Morris",
+                    "email": "craig.michael.morris@gmail.com"
+                }
+            ],
+            "description": "Show the line number where the dump method was called",
+            "time": "2019-10-16T15:27:59+00:00"
         },
         {
             "name": "myclabs/deep-copy",
