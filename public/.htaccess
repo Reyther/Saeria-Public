@@ -1,3 +1,8 @@
+# Force HTTPS on *.webqamapps.com domains
+RewriteCond %{HTTP_HOST} \.webqamapps.com$
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
