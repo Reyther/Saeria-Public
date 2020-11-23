@@ -4,12 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import './bootstrap';
-import Vue from 'vue';
-import { pascalToKebab } from './utils/String';
+// import Vue from 'vue';
+// import { pascalToKebab } from './utils/String';
 
-import ExampleComponent from './components/ExampleComponent';
+// import ExampleComponent from './components/ExampleComponent';
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,17 +23,17 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 // Instantiate Vue root components
-[ExampleComponent].forEach((c) => {
-  if (process.env.NODE_ENV === 'development' && !c.name) {
-    throw new Error('Component name is undefined.');
-  }
-
-  Vue.component(c.name, c);
-
-  Array.from(document.getElementsByTagName(pascalToKebab(c.name))).forEach(
-    (el) => new Vue({ el })
-  );
-});
+// [ExampleComponent].forEach((c) => {
+//   if (process.env.NODE_ENV === 'development' && !c.name) {
+//     throw new Error('Component name is undefined.');
+//   }
+//
+//   Vue.component(c.name, c);
+//
+//   Array.from(document.getElementsByTagName(pascalToKebab(c.name))).forEach(
+//     (el) => new Vue({ el })
+//   );
+// });
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
