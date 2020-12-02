@@ -22,7 +22,7 @@ class MagicCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -34,7 +34,7 @@ class MagicCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -45,13 +45,13 @@ class MagicCrudController extends CrudController
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -65,7 +65,12 @@ class MagicCrudController extends CrudController
             'name' => Magic::COL_CIRCLE,
             'label'       => "Cercle",
             'type'        => 'select_from_array',
-            'options'     => ['Élémentaire' => 'Élémentaire','Divin' => 'Divin','Secondaire' => 'Secondaire','Énergétique' => 'Énergétique'],
+            'options'     => [
+                'Élémentaire' => 'Élémentaire',
+                'Divin' => 'Divin',
+                'Secondaire' => 'Secondaire',
+                'Énergétique' => 'Énergétique'
+            ],
             'allows_null' => false,
         ]);
 
@@ -73,13 +78,13 @@ class MagicCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
