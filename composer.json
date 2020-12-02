@@ -12,6 +12,7 @@
         "akaunting/firewall": "^1.2",
         "backpack/crud": "~4.0",
         "barryvdh/laravel-ide-helper": "^2.8",
+        "bensampo/laravel-enum": "1.38.0",
         "fideloper/proxy": "^4.4",
         "laravel/framework": "^6.20",
         "laravel/tinker": "^2.5",
@@ -72,11 +73,5 @@
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta"
         ]
-    },
-    "repositories": {
-        "laravel-installer": {
-            "type": "git",
-            "url": "git@gitlab.webqam.fr:webqam\/boilerplates\/laravel-installer.git"
-        }
     }
 }
