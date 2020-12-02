@@ -24,3 +24,5 @@ grumphp:
       working_directory: "./"
       is_run_task: true
       silent: true
+    phpcs:
+      standard: ./phpcs.xml
