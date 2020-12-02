@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\MagicCircle;
 use App\Http\Requests\Request;
 use App\Models\Magic;
+use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,7 +32,7 @@ class MagicRequest extends FormRequest
         return [
              Magic::COL_NAME => 'required|min:3|max:255',
              Magic::COL_DESC => 'required|min:3|max:3000',
-             Magic::COL_CIRCLE => ['required',Rule::in(['Élémentaire','Divin','Secondaire','Énergétique'])],
+             Magic::COL_CIRCLE => ['required', new EnumValue(MagicCircle::class)]
         ];
     }
 

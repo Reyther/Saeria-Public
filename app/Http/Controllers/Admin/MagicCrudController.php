@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\MagicCircle;
 use App\Http\Requests\MagicRequest;
 use App\Models\Magic;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -65,12 +66,7 @@ class MagicCrudController extends CrudController
             'name' => Magic::COL_CIRCLE,
             'label'       => "Cercle",
             'type'        => 'select_from_array',
-            'options'     => [
-                'Élémentaire' => 'Élémentaire',
-                'Divin' => 'Divin',
-                'Secondaire' => 'Secondaire',
-                'Énergétique' => 'Énergétique'
-            ],
+            'options'     => MagicCircle::toSelectArray(),
             'allows_null' => false,
         ]);
 
