@@ -18,11 +18,5 @@ grumphp:
         - "dump("
       whitelist_patterns:
         - "->add("
-    npm_script:
-      script: lintall
-      triggered_by: [js, jsx, coffee, ts, less, sass, scss]
-      working_directory: "./"
-      is_run_task: true
-      silent: true
     phpcs:
       standard: ./phpcs.xml
