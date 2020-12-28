@@ -11,8 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get("/magies", "FrontController@getMagics");
+Route::get("/", "FrontController@getHome");

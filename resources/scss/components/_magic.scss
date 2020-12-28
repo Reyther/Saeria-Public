@@ -1,0 +1,29 @@
+.magic {
+  $block-selector: &;
+  padding:10px;
+  border: 1px solid $color-primary;
+
+  &:nth-child(even) {
+    text-align: right;
+  }
+
+  &__container {
+    padding-left: 0;
+  }
+
+  &__block {
+    list-style: none;
+    margin-top: 2em;
+    border: 1px solid $color-primary;
+  }
+
+  &__circle-name {
+    text-align: center;
+    padding: 5px 0;
+  }
+
+  &__circle {
+    list-style: none;
+    padding-left: 0;
+  }
+}

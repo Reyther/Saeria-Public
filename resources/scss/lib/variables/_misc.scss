@@ -7,6 +7,8 @@
 // - SHOULD be grouped
 // - SHOULD be prefixed
 $default-transition-duration: 150ms;
+$default-transition-timing: ease;
+$default-transition: $default-transition-duration $default-transition-timing;
 
 // Buttons
 $base-btn-block-selector: ".base-btn";

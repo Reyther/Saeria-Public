@@ -17,7 +17,7 @@ $color-default-background: $color-black;
 $color-default-link: $color-blue;
 
 // ## Theme
-$color-primary: null;
+$color-primary: #bf8e50;
 $color-primary-invert: if($color-primary, text-contrast($color-primary), null);
 
 $color-secondary: null;
