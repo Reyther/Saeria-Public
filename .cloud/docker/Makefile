@@ -15,11 +15,11 @@ down-expose: ## stop all containers with exposed ports
 	docker-compose -f docker-compose.yml -f docker-compose.local.yml stop && docker-compose -f docker-compose.yml -f docker-compose.local.yml -f docker-compose.expose.yml rm -f
 
 bash: up ## Connect to workspace container
-	docker-compose -f docker-compose.yml -f docker-compose.local.yml exec --user laradock workspace bash
+	docker-compose -f docker-compose.yml -f docker-compose.local.yml exec --user laradock workspace zsh
 
 .PHONY: bash-expose
 bash-expose: up-expose ## Connect to workspace container with exposed ports
-	docker-compose -f docker-compose.yml -f docker-compose.local.yml -f docker-compose.expose.yml exec --user laradock workspace bash
+	docker-compose -f docker-compose.yml -f docker-compose.local.yml -f docker-compose.expose.yml exec --user laradock workspace zsh
 
 .DEFAULT_GOAL := help
 help:

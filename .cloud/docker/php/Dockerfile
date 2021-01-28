@@ -38,10 +38,17 @@ RUN docker-php-ext-install pdo_mysql \
     --with-freetype-dir=/usr/include/freetype2 && \
     docker-php-ext-install gd
 
-
 # Install OPCache
 RUN docker-php-ext-install opcache
 COPY .cloud/docker/php/conf/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+
+# Install WordPress requirements
+ARG PROJECT_TYPE=""
+RUN if [ "${PROJECT_TYPE}" = "wordpress" ]; then \
+  # Install the PHP mysqli extention
+  docker-php-ext-install mysqli \
+    && docker-php-ext-enable mysqli \
+;fi
 
 # Install Imagick extension
 # imagick
@@ -61,29 +68,25 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
 		libmagickwand-dev \
 ;fi
 
+# Add custom ini directives
+COPY .cloud/docker/php/conf/php.ini /usr/local/etc/php/conf.d/php.ini
+
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Apache
 RUN a2enmod rewrite remoteip headers
+RUN echo "ServerTokens Prod\n" >> /etc/apache2/apache2.conf
+RUN echo "ServerSignature Off\n" >> /etc/apache2/apache2.conf
+RUN echo "TraceEnable Off\n" >> /etc/apache2/apache2.conf
 COPY .cloud/docker/php/conf/vhost.conf ${APACHE_CONF_DIR}/sites-enabled/app.conf
 RUN a2dissite 000-default
 
-# SSL
-
-ARG APP_HOST=""
-ARG INSTALL_SSL=false
-
-RUN if [ ${INSTALL_SSL} = true ]; then \
-    mkdir ${APACHE_CONF_DIR}/ssl \
-        && openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
-                "/C=FR/ST=Loire/L=Saint-Étienne/O=Webqam/CN=${APP_HOST}" \
-                -keyout ${APACHE_CONF_DIR}/ssl/ssl.key -out ${APACHE_CONF_DIR}/ssl/ssl.crt \
-        && a2enmod ssl \
-;fi
-
 # Clean repos
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ARG WEB_WORKDIR=""
+ENV WEB_WORKDIR="$WEB_WORKDIR"
 
 ARG APP_CODE_PATH_CONTAINER=/var/www
 

@@ -7,6 +7,13 @@ volumes:
 
 services:
   ####################
+  # PHP and Apache Container
+  ####################
+  php-apache:
+    environment:
+      OPCACHE_VALIDATE_TIMESTAMPS: 1
+
+  ####################
   # Database Container
   ####################
   mariadb:
@@ -81,6 +88,7 @@ services:
     build:
       context: ./workspace
       args:
+        - PROJECT_TYPE=${PROJECT_TYPE}
         - PHP_VERSION=${PHP_VERSION}
         - LARADOCK_PHP_VERSION=${PHP_VERSION}
         - INSTALL_NODE=${WORKSPACE_INSTALL_NODE:-true}
@@ -92,17 +100,16 @@ services:
         - INSTALL_XDEBUG=true
         - INSTALL_DUSK_DEPS={WORKSPACE_INSTALL_DUSK_DEPS:-false}
         - CHROME_DRIVER_VERSION=${WORKSPACE_CHROME_DRIVER_VERSION:-77.0.3865.40}
-        - INSTALL_PRESTISSIMO=true
-        - INSTALL_SOAP=true
+        - INSTALL_SOAP=false
         - INSTALL_DRUSH=${WORKSPACE_INSTALL_DRUSH:-false}
         - DRUSH_VERSION=${WORKSPACE_DRUSH_VERSION:-9}
         - INSTALL_IMAGEMAGICK=${INSTALL_IMAGEMAGICK}
+        - INSTALL_ZSH=${INSTALL_ZSH}
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:cached # Share source
-      - ~/.ssh/id_rsa:/root/.ssh/id_rsa # Share SSH key with container
-      - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub # Share SSH key with container
-      - ~/.gitconfig:/root/.gitconfig # Share git config with container
-      - ~/.composer/auth.json:/root/.composer/auth.json
+      - ~/.ssh/:/home/laradock/.ssh/ # Share SSH key with container
+      - ~/.gitconfig:/home/laradock/.gitconfig # Share git config with container
+      - ~/.composer/auth.json:/home/laradock/.composer/auth.json
     tty: true
     networks:
       - internal

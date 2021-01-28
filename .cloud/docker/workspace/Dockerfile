@@ -27,6 +27,7 @@ RUN set -xe; \
     groupadd -g ${PGID} laradock && \
     useradd -u ${PUID} -g laradock -m laradock -G docker_env && \
     usermod -p "*" laradock -s /bin/bash && \
+    adduser laradock www-data && \
     apt-get install -yqq \
       apt-utils \
       #
@@ -191,19 +192,14 @@ RUN if [ ${INSTALL_SSH2} = true ]; then \
 
 ARG INSTALL_WORKSPACE_SSH=false
 
-COPY insecure_id_rsa /tmp/id_rsa
-COPY insecure_id_rsa.pub /tmp/id_rsa.pub
-
 RUN if [ ${INSTALL_WORKSPACE_SSH} = true ]; then \
     rm -f /etc/service/sshd/down && \
-    cat /tmp/id_rsa.pub >> /root/.ssh/authorized_keys \
-        && cat /tmp/id_rsa.pub >> /root/.ssh/id_rsa.pub \
-        && cat /tmp/id_rsa >> /root/.ssh/id_rsa \
-        && rm -f /tmp/id_rsa* \
+    cat /home/laradock/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys \
+        && cat /home/laradock/.ssh/id_rsa.pub >> /root/.ssh/id_rsa.pub \
+        && cat /home/laradock/.ssh/id_rsa >> /root/.ssh/id_rsa \
         && chmod 644 /root/.ssh/authorized_keys /root/.ssh/id_rsa.pub \
     && chmod 400 /root/.ssh/id_rsa \
-    && cp -rf /root/.ssh /home/laradock \
-    && chown -R laradock:laradock /home/laradock/.ssh \
+    && chown laradock:laradock /home/laradock/.ssh \
 ;fi
 
 ###########################################################################
@@ -514,6 +510,52 @@ ARG INSTALL_PRESTISSIMO=false
 RUN if [ ${INSTALL_PRESTISSIMO} = true ]; then \
     # Install Prestissimo
     composer global require "hirak/prestissimo" \
+;fi
+
+###########################################################################
+# Composer v2:
+###########################################################################
+USER root
+
+RUN if [ ! ${INSTALL_PRESTISSIMO} = true ]; then \
+    # Install Prestissimo
+    composer self-update \
+;fi
+
+###########################################################################
+# Oh-My-Zsh:
+###########################################################################
+USER root
+
+ARG INSTALL_ZSH=false
+ARG PROJECT_TYPE=none
+
+RUN if [ "${INSTALL_ZSH}" = true ]; then \
+    # Install Zsh
+    apt-get update -yqq && \
+    apt-get -y install zsh \
+;fi
+
+USER laradock
+
+RUN if [ "${INSTALL_ZSH}" = true ]; then \
+    # Choose plugins
+    PLUGINS="git composer npm"; \
+    case ${PROJECT_TYPE} in \
+        "drupal") \
+            PLUGINS="$PLUGINS drush"; \
+            ;; \
+        "laravel") \
+            PLUGINS="$PLUGINS laravel5"; \
+            ;; \
+        "wordpress") \
+            PLUGINS="$PLUGINS wp-cli"; \
+            ;; \
+    esac; \
+    # Install Oh-My-Zsh
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
+    # Choose default plugins
+    sed -i "s/plugins=\(.*\)/plugins=($PLUGINS)/g" ~/.zshrc \
 ;fi
 
 #

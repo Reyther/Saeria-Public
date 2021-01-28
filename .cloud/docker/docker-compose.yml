@@ -9,10 +9,10 @@ services:
       context: '../../'
       dockerfile: '.cloud/docker/php/Dockerfile'
       args:
+        PROJECT_TYPE: ${PROJECT_TYPE}
+        WEB_WORKDIR: ${WEB_WORKDIR}
         PHP_VERSION: ${PHP_VERSION}
         INSTALL_IMAGEMAGICK: ${INSTALL_IMAGEMAGICK}
-        INSTALL_SSL: ${INSTALL_SSL}
-        APP_HOST: ${APP_HOST}
         APP_CODE_PATH_CONTAINER: ${APP_CODE_PATH_CONTAINER}
     #    depends_on:
     #      - mariadb # Solve external depends_on
@@ -20,6 +20,7 @@ services:
       PHP_MEMORY_LIMIT: 1G
       APP_CODE_PATH_CONTAINER: ${APP_CODE_PATH_CONTAINER}
       APACHE_LOG_DIR: ${APACHE_LOG_DIR}
+      OPCACHE_VALIDATE_TIMESTAMPS: 0
     volumes:
       - ${APP_CODE_PATH_HOST}/:${APP_CODE_PATH_CONTAINER}
       - ${LOGS_PATH_HOST}apache:${APACHE_LOG_DIR}

@@ -69,3 +69,28 @@ Makefile contain some helpful command.
 - `make down-expose` to down all container with exposed port
 - `make bash-expose` to start all container and connect to `workspace` container with exposed port
 - `make help` for help !
+
+## Laravel & Write accesses
+
+To allow write accesses to log files, add `'permission' => 0664` to your `config/logging.php` channel.
+
+Example :
+```php
+return [
+    // ...
+
+    'channels' => [
+        // ...
+
+        'daily' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/laravel.log'),
+            'level' => 'debug',
+            'days' => 14,
+            'permission' => 0664,
+        ],
+
+        // ...
+    ],
+];
+```
