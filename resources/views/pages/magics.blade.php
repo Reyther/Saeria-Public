@@ -3,7 +3,7 @@
 @section('title', 'Magies')
 
 @section('content')
-    
+
     <h1> Magies </h1>
     <div class="row">
     <div class="col-10 offset-1">
@@ -14,8 +14,11 @@
             <ul class="magic__circle">
             @foreach ($circle as $magic)
                 <li class="magic">
-                    <h3 class="magic__title"> {{$magic->name}} </h3>
-                    <p class="magic__desc"> {{$magic->description}} </p>
+                    <img class="magic__image" src="{{$magic->image}}">
+                    <div class="magic__text">
+                        <h3 class="magic__title"> {{$magic->name}} </h3>
+                        <p class="magic__desc"> {{$magic->description}} </p>
+                    </div>
                  </li>
                 @endforeach
              </ul>
@@ -24,6 +27,6 @@
     </ul>
     </div>
     </div>
-    
+
 @endsection
 

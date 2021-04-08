@@ -2,10 +2,8 @@
   $block-selector: &;
   padding: 10px;
   border: 1px solid $color-primary;
-
-  &:nth-child(even) {
-    text-align: right;
-  }
+  display: flex;
+  flex-direction: row;
 
   &__container {
     padding-left: 0;
@@ -25,5 +23,14 @@
   &__circle {
     list-style: none;
     padding-left: 0;
+  }
+
+  &__image {
+    height: 150px;
+    max-width: 100%;
+  }
+
+  &__text {
+      padding: 0 15px;
   }
 }
