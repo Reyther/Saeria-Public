@@ -1,6 +1,6 @@
 .magic {
   $block-selector: &;
-  padding:10px;
+  padding: 10px;
   border: 1px solid $color-primary;
 
   &:nth-child(even) {

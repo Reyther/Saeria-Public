@@ -1,24 +1,24 @@
 .showcase {
-    $block-selector : &;
-    padding: 20px 10px;
-    border: 1px solid $color-primary;
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    position: relative;
+  $block-selector: &;
+  padding: 20px 10px;
+  border: 1px solid $color-primary;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  position: relative;
 
-    &__link {
-        transition: color $default-transition;
-        &:hover {
-            color: $color-primary;
-        }
-        &::before {
-            content:"";
-            position:absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
+  &__link {
+    transition: color $default-transition;
+    &:hover {
+      color: $color-primary;
     }
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
 }

@@ -21,10 +21,10 @@ services:
     restart: unless-stopped
     tty: true
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: 'admin'
+      MYSQL_USER: 'saeria'
+      MYSQL_PASSWORD: 'saeria'
+      MYSQL_DATABASE: 'saeria'
       ALLOW_EMPTY_PASSWORD: 'true'
     volumes:
       - ${DATA_PATH_HOST}mariadb/mariadb_data:/var/lib/mysql
