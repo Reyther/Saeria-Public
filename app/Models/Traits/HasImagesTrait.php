@@ -21,7 +21,7 @@ trait HasImagesTrait
      *
      * @return string|null
      */
-    public function setImageMutator(
+    public function applyImageMutator(
         ?string $attribute,
         ?string $value,
         $path = 'images',

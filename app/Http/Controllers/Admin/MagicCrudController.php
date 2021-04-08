@@ -41,7 +41,10 @@ class MagicCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::addColumn(Magic::COL_DESC, ['limit' => 60]);
         CRUD::setFromDb(); // columns
+
+
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -70,6 +73,15 @@ class MagicCrudController extends CrudController
             'allows_null' => false,
         ]);
 
+        // image
+        CRUD::addField([
+            'name' => Magic::COL_IMAGE,
+            'type' => 'image',
+            'crop' => true, // set to true to allow cropping, false to disable
+            'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
+            'disk'      => 'public', // in case you need to show images from a different disk
+            // 'prefix'    => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

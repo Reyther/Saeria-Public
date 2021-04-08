@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Magic;
+
 return [
 
     'enabled' => env('FIREWALL_ENABLED', true),
@@ -376,7 +378,9 @@ return [
 
             'inputs' => [
                 'only' => [], // i.e. 'first_name'
-                'except' => [], // i.e. 'password'
+                'except' => [
+                    Magic::COL_IMAGE,
+                ], // i.e. 'password'
             ],
 
             'patterns' => [
