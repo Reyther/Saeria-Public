@@ -4,11 +4,13 @@ namespace App\Models;
 
 use App\Models\Traits\HasImagesTrait;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
+
 
 class Magic extends Model
 {
-    use CrudTrait, HasImagesTrait;
+    use CrudTrait, HasImagesTrait, HasTranslations;
 
     const TABLE_NAME = "magics";
     const COL_NAME = "name";
@@ -28,6 +30,11 @@ class Magic extends Model
         self::COL_DESC,
         self::COL_CIRCLE,
         self::COL_IMAGE,
+    ];
+
+    public $translatable = [
+        self::COL_NAME,
+        self::COL_DESC,
     ];
 
     /*
