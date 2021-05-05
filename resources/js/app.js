@@ -4,12 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import './bootstrap';
-
-import ExampleComponent from './components/ExampleComponent';
+import GenealogyComponent from './components/GenealogyComponent';
 
 /**
  * Then we initialize all scripts on page load.
  */
 window.addEventListener('load', function () {
-  ExampleComponent.init();
+  GenealogyComponent.init();
 });

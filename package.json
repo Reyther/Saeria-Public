@@ -19,6 +19,8 @@
         "babel-eslint": "^10.1.0",
         "breakpoint-sass": "^2.7.1",
         "cross-env": "^7.0",
+        "d3": "^4.13.0",
+        "d3-dtree": "^2.4.1",
         "eslint": "^5.16.0",
         "eslint-config-prettier": "^6.15.0",
         "eslint-import-resolver-webpack": "^0.13.0",

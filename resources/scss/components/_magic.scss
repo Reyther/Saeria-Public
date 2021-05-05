@@ -10,14 +10,13 @@
     padding-left: 0;
   }
 
-
   &__block {
     list-style: none;
     margin-top: 2em;
     border: 1px solid $color-primary;
 
     &:nth-child(even) {
-        text-align: right;
+      text-align: right;
     }
   }
 
@@ -32,8 +31,6 @@
     padding-left: 0;
   }
 
-
-
   &__image {
     width: 150px;
     height: 150px;
@@ -41,11 +38,11 @@
     max-width: 150px;
 
     #{$block-selector + "__block:nth-child(even)"} & {
-        order: 1;
+      order: 1;
     }
   }
 
   &__text {
-      padding: 0 15px;
+    padding: 0 15px;
   }
 }
