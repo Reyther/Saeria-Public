@@ -11,5 +11,5 @@
 |
 */
 
-Route::get("/magies", "FrontController@getMagics");
+Route::get("/magies", "FrontController@getMagics")->name("magic");
 Route::get("/", "FrontController@getHome");

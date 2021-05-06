@@ -1,0 +1,16 @@
+.navbar.theme-saeria {
+    background-color: $color-primary;
+    color: $color-secondary;
+    :hover {
+        color: $color-secondary;
+    }
+    .dropdown-menu {
+        background-color: $color-primary;
+    }
+    .dropdown-item {
+        color: $color-secondary;
+        &:hover {
+            background-color: $color-primary;
+        }
+    }
+}

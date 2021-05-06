@@ -20,7 +20,7 @@ $color-default-link: $color-blue;
 $color-primary: #bf8e50;
 $color-primary-invert: if($color-primary, text-contrast($color-primary), null);
 
-$color-secondary: null;
+$color-secondary: #F3EFE8;
 $color-secondary-invert: if(
   $color-secondary,
   text-contrast($color-secondary),

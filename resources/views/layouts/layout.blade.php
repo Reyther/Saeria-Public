@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{{ asset(mix("css/main.css")) }}">
     </head>
     <body>
+        @include('layouts.header')
         @yield('content')
     <script src="{{ asset(mix("js/app.js")) }}"></script>
     </body>
