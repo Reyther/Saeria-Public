@@ -2,6 +2,7 @@ import dTree from 'd3-dtree';
 
 const GenealogyComponent = {
   init: function () {
+    // TODO: Use dynamic data
     const treeData = [
       {
         name: 'Alma',
